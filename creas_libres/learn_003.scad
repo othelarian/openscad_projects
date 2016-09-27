@@ -41,18 +41,19 @@ module tophead() {
 module mouth() {
   union() {
     pts_1 = [
-    [0,0],[16,0],[16,6],[12,10],[12,14],[18,20],[18,26],
+    [0,0],[14,0],[14,6],[10,10],[10,14],[16,20],[16,26],
     [10,26],[4,20],[4,10],[0,6]
     ];
     translate([-20,0,8]) rotate([-90,0,0]) polyk(pts_1);
-    //
-    //cube();
-    //
-    translate([4,0,-15])
-    rotate([0,90,0])
-    cube([10,10,1],center=true);
-    //
+    translate([-3,0,-15]) rotate([0,90,90]) cube([2,4,1],center=true);
+    pts_2 = [[-6,-2],[-4,-4],[4,-4],[8,-2],[8,2],[4,4],[-4,4],[-6,2]];
+    translate([-3,0,-15]) rotate([0,90,0]) polyk(pts_2);
   }
+}
+
+module centerhead() {
+  //
+  //
 }
 
 // assembly ############################
@@ -60,16 +61,18 @@ module mouth() {
 module assembly_003() {
   translate([10,0,10])
   union() {
-    ecart = 22;
+    ecart = 20;
     translate([0,-ecart/2,0]) eye();
     translate([0,ecart/2,0]) eye();
     translate([-6,0,3]) rotate([0,-90,0]) tophead();
     translate([-16,0,3]) rotate([0,-90,0]) tophead();
     translate([-26,0,3]) rotate([0,-90,0]) tophead();
+    translate([2,0,0]) mouth();
     //
-    mouth();
+    centerhead();
     //
   }
 }
 
-assembly_003();
+//assembly_003();
+centerhead();
