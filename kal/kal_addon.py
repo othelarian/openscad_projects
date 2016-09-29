@@ -90,7 +90,7 @@ class OPERATOR_kal_generate(bpy.types.Operator):
             self.report({"ERROR"},"Error in conversion from scad to stl")
             return {"CANCELLED"}
         # import the stl file
-        bpy.ops.import_mesh.stl(filepath=target)
+        bpy.ops.import_mesh.stl(filepath=target,global_scale=0.1)
         # clean
         os.remove(target)
         return {"FINISHED"}
