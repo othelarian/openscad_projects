@@ -7,6 +7,7 @@ bl_info = {
 
 import bpy
 import os
+from pathlib import Path
 import subprocess
 
 class PANEL_kal_main(bpy.types.Panel):
@@ -53,7 +54,7 @@ class OPERATOR_kal_refresh(bpy.types.Operator):
         lst_dirs = sorted(os.listdir(cs.kal_abspath))
         cs.kal_dirs_list.clear()
         for elt in lst_dirs:
-            if not elt == "kal_addon.py":
+            if not elt == "kal_addon.py" and not elt[-4:] == ".stl":
                 item = cs.kal_dirs_list.add()
                 item.name = elt
         if cs.kal_dir_active > (len(lst_dirs)-2):
@@ -68,30 +69,30 @@ class OPERATOR_kal_generate(bpy.types.Operator):
 
     def execute(self,context):
         cs = context.scene
-        #
-        # TODO : generate the transfert file (.stl)
-        #
-        #input = os.path.join(cs.kal_)
-        #target =
-        #
-        #print(input)
-        #print(target)
-        #
-        try:
-            #
-            #subprocess
-            #
-            pass
-        except Exception:
-            #
-            self.report({"ERROR"},"Error in conversion from scad to stl")
-            #
+        # clear old buggy stl
+        lst_files = os.listdir(cs.kal_abspath)
+        for elt in lst_files:
+            if elt[-4:] == ".stl":
+                os.remove(os.path.join(cs.kal_abspath,elt))
+        # get the input file
+        act_dir = cs.kal_dirs_list[cs.kal_dir_active].name
+        act_piece = cs.kal_pieces_list[cs.kal_piece_active].name
+        input = os.path.join(cs.kal_abspath,act_dir,(act_piece+".scad"))
+        target = os.path.join(cs.kal_abspath,(act_piece+".stl"))
+        if not Path(input).exists():
+            self.report({"ERROR"},"The scad file doesn't exists ! Please refresh !")
             return {"CANCELLED"}
-        #
-        # TODO : import the transfert file
-        #
-        #print(os.getcwd())
-        #
+        try:
+            args = ["openscad","-o",target,"-D","ext_scale="+str(cs.kal_scale),input]
+            subprocess.run(args)
+        except Exception as e:
+            print(e)
+            self.report({"ERROR"},"Error in conversion from scad to stl")
+            return {"CANCELLED"}
+        # import the stl file
+        bpy.ops.import_mesh.stl(filepath=target)
+        # clean
+        os.remove(target)
         return {"FINISHED"}
 
 class LIST_kal_list(bpy.types.UIList):
@@ -139,7 +140,7 @@ def register():
     bpy.types.Scene.kal_dir_active = bpy.props.IntProperty(
         update=check_dir_active)
     bpy.types.Scene.kal_piece_active = bpy.props.IntProperty()
-    bpy.types.Scene.kal_scale = bpy.props.FloatProperty(min=0)
+    bpy.types.Scene.kal_scale = bpy.props.FloatProperty(default=1,min=0)
 
 def unregister():
     #panels
