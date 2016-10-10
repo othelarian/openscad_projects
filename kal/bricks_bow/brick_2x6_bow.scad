@@ -14,7 +14,7 @@ module brick_2x6_bow(m_scale=ext_scale,m_fn=ext_fn) {
     u_bow = r_bow-6;
     ang_bow = (90-acos(5/hyp_bow))*2;
     echo (ang_bow);
-    div = 4;
+    div = m_fn/3;
 
     pts_bow_b = [[20,1],[20,0],[-1,0],[0,6]];
     pts_bow_a = [for (i=[1:div-1]) let (ang = 90-(ang_bow/div)*i) [cos(ang)*r_bow,sin(ang)*r_bow-u_bow]];
