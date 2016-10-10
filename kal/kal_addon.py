@@ -10,6 +10,8 @@ import os
 from pathlib import Path
 import subprocess
 
+# panels #########################################
+
 class PANEL_kal_main(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "TOOLS"
@@ -38,6 +40,35 @@ class PANEL_kal_main(bpy.types.Panel):
         row = layout.row()
         row.operator("kal.refresh")
         row.operator("kal.generate")
+
+class PANEL_kal_assembly(bpy.types.Panel):
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "TOOLS"
+    bl_label = "Kal assembly"
+    bl_category = "Kal"
+
+    def draw(self,context):
+        layout = self.layout
+        cs = context.scene
+        row = layout.row()
+        row.label("Dirs list :")
+        row = layout.row()
+        row.template_list(
+            "kal.list","kal.reps_list",cs,"kal_reps_list",
+            cs,"kal_reps_active","",2
+        )
+        row = layout.row()
+        row.label("Assemblies list :")
+        row = layout.row()
+        row.template_list(
+            "kal.list","kal.assbly_list",cs,"kal_assbly_list",
+            cs,"kal_assbly_active","",2
+        )
+        row = layout.row()
+        row.operator("kal.assbly_refresh")
+        row.operator("kal.assbly_import")
+
+# operators ######################################
 
 class OPERATOR_kal_refresh(bpy.types.Operator):
     bl_label = "Refresh"
@@ -95,6 +126,26 @@ class OPERATOR_kal_generate(bpy.types.Operator):
         os.remove(target)
         return {"FINISHED"}
 
+class OPERATOR_kal_assbly_refresh(bpy.types.Operator):
+    bl_label = "Refresh"
+    bl_idname = "kal.assbly_refresh"
+    bl_options = {"UNDO"}
+
+    def execute(self,context):
+        cs = context.scene
+        #
+
+class OPERATOR_kal_assbly_import(bpy.types.Operator):
+    bl_label = "Import"
+    bl_idname = "kal.assbly_import"
+    bl_options = {"UNDO"}
+
+    def execute(self,context):
+        cs = context.scene
+        #
+
+# lists ##########################################
+
 class LIST_kal_list(bpy.types.UIList):
     bl_idname = "kal.list"
 
@@ -105,11 +156,21 @@ class LIST_kal_list(bpy.types.UIList):
         elif self.layout_type in {"GRID"}:
             pass
 
+# properties #####################################
+
 class PROPS_kal_dirs_list(bpy.types.PropertyGroup):
     name = bpy.props.StringProperty()
 
 class PROPS_kal_pieces_list(bpy.types.PropertyGroup):
     name = bpy.props.StringProperty()
+
+class PROPS_kal_reps_list(bpy.types.PropertyGroup):
+    name = bpy.props.StringProperty()
+
+class PROPS_kal_assbly_list(bpy.types.PropertyGroup):
+    name = bpy.props.StringProperty()
+
+# internal functions #############################
 
 def check_dir_active(self,context):
     cs = context.scene
@@ -121,12 +182,26 @@ def check_dir_active(self,context):
         item = cs.kal_pieces_list.add()
         item.name = file[:-5]
 
+def check_reps_active(self,context):
+    cs = context.scene
+    #
+    cs.kal_assbly_list.clear()
+    #
+    act_reps = cs.kal_reps_list[cs.kal_reps_active].name
+    #
+    #
+
+# register / unregister ##########################
+
 def register():
     #panels
     bpy.utils.register_class(PANEL_kal_main)
+    bpy.utils.register_class(PANEL_kal_assembly)
     #operators
     bpy.utils.register_class(OPERATOR_kal_refresh)
     bpy.utils.register_class(OPERATOR_kal_generate)
+    bpy.utils.register_class(OPERATOR_kal_assbly_refresh)
+    bpy.utils.register_class(OPERATOR_kal_assbly_import)
     #lists
     bpy.utils.register_class(LIST_kal_list)
     #properties
@@ -141,13 +216,25 @@ def register():
         update=check_dir_active)
     bpy.types.Scene.kal_piece_active = bpy.props.IntProperty()
     bpy.types.Scene.kal_scale = bpy.props.FloatProperty(default=1,min=0)
+    bpy.utils.register_class(PROPS_kal_reps_list)
+    bpy.utils.register_class(PROPS_kal_assbly_list)
+    bpy.types.Scene.kal_reps_list = bpy.props.CollectionProperty(
+        type=PROPS_kal_reps_list)
+    bpy.types.Scene.kal_assbly_list = bpy.props.CollectionProperty(
+        type=PROPS_kal_assbly_list)
+    bpy.types.Scene.kal_reps_active = bpy.props.IntProperty(
+        update=check_reps_active)
+    bpy.types.Scene.kal_assbly_active = bpy.props.IntProperty()
 
 def unregister():
     #panels
     bpy.utils.unregister_class(PANEL_kal_main)
+    bpy.utils.unregister_class(PANEL_kal_assembly)
     #operators
     bpy.utils.unregister_class(OPERATOR_kal_refresh)
     bpy.utils.unregister_class(OPERATOR_kal_generate)
+    bpy.utils.unregister_class(OPERATOR_kal_assbly_refresh)
+    bpy.utils.unregister_class(OPERATOR_kal_assbly_import)
     #lists
     bpy.utils.unregister_class(LIST_kal_list)
     #properties
@@ -159,6 +246,12 @@ def unregister():
     del bpy.types.Scene.kal_dir_active
     del bpy.types.Scene.kal_piece_active
     del bpy.types.Scene.kal_scale
+    bpy.utils.unregister_class(PROPS_reps_list)
+    bpy.utils.unregister_class(PROPS_assbly_list)
+    del bpy.types.Scene.kal_reps_list
+    del bpy.types.Scene.kal_assbly_list
+    del bpy.types.Scene.kal_reps_active
+    del bpy.types.Scene.kal_assbly_active
 
 if __name__ == "__main__":
     register()
