@@ -1,3 +1,4 @@
 exports
-.stl
-.csg
+*.stl
+*.csg
+*.swp
