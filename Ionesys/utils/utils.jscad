@@ -53,9 +53,33 @@ utils_arc = function(h,w,oh,ow,n) {
   return pts;
 };
 
+// half ovoid ###################################
+
+utils_half_ovoid = function(br,sr,e,n) {
+  if (!(n instanceof Array)) n = [n,n,n];
+  //
+  var pts = [];
+  //
+  // first arc
+  for (var i=0;i<=n[0];i++) {
+    var tmp_ang = 180-(90/n)*i;
+    pts.push([cos(tmp_ang)*br,sin(tmp_ang)*br]);
+  }
+  // second arc
+  //
+  // third arc
+  //
+  //
+  return pts;
+};
+
 // ovoid ########################################
-ovoid = function() {
+utils_ovoid = function() {
   //
   //
 };
+
+// half ellipse #################################
+
+// ellipse ######################################
 
