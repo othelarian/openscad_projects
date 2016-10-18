@@ -20,7 +20,7 @@ utils_preproc = function() {
 };
 
 // half arc
-half_arc = function(h,w,oh,ow,n) {
+utils_half_arc = function(h,w,oh,ow,n) {
   var hyp_arc = sqrt(h*h+w*w);
   var r_arc = (hyp_arc/2) / (h/hyp_arc);
   var u_arc = r_arc - h;
@@ -29,17 +29,18 @@ half_arc = function(h,w,oh,ow,n) {
   for (var i=1;i<n;i++) {
     var tmp_ang = 90-(ang_arc/n)*i;
     pts.push([
-      Math.cos(tmp_ang*(Math.PI/180))*r_arc-ow,
-      Math.sin(tmp_ang*(Math.PI/180))*r_arc-u_arc-oh
+      cos(tmp_ang)*r_arc-ow,
+      sin(tmp_ang)*r_arc-u_arc-oh
     ]);
   }
   return pts;
 };
 
 // arc
-arc = function(h,w,oh,ow,n) {
+utils_arc = function(h,w,oh,ow,n) {
   //
   //
+  return [];
   //
 };
 
