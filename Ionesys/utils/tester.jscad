@@ -18,12 +18,12 @@
 
 // outputs ######################################
 
-helpers = function() {}
-
-bones = function() {
-  //
-  //
+helpers = function() {
+  var sat = utils_sat().translate([10,10,0]);
+  outs.push(sat);
 }
+
+bones = function() {}
 
 render = function() {
   //
@@ -38,17 +38,17 @@ render = function() {
   // small r : 20
   // C -> I : 70
   // C
-  p3d.push(cylinder({r:5,h:1,fn:4,center:true}).translate([0,0,10]));
+  objs.push(cylinder({r:5,h:1,fn:4,center:true}).translate([0,0,10]));
   // A
-  p3d.push(cylinder({r:5,h:1,fn:4,center:true}).translate([-50,0,10]));
+  objs.push(cylinder({r:5,h:1,fn:4,center:true}).translate([-50,0,10]));
   // E
-  p3d.push(cylinder({r:5,h:1,fn:4,center:true}).translate([0,-50,10]));
+  objs.push(cylinder({r:5,h:1,fn:4,center:true}).translate([0,-50,10]));
   // F
-  p3d.push(cylinder({r:5,h:1,fn:4,center:true}).translate([0,50,10]));
+  objs.push(cylinder({r:5,h:1,fn:4,center:true}).translate([0,50,10]));
   // I
-  p3d.push(cylinder({r:5,h:1,fn:4,center:true}).translate([70,0,10]));
+  objs.push(cylinder({r:5,h:1,fn:4,center:true}).translate([70,0,10]));
   // B
-  p3d.push(cylinder({r:5,h:1,fn:4,center:true}).translate([90,0,10]));
+  objs.push(cylinder({r:5,h:1,fn:4,center:true}).translate([90,0,10]));
   //
   var pts = [];
   for (var i=0;i<=5;i++) {

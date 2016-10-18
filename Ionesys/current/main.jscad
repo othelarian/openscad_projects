@@ -9,8 +9,8 @@ include("current.jscad");
 
 // internal vars ################################
 
-var p2d = [];
-var p3d = [];
+var objs = [];
+var outs = [];
 
 // parameters ###################################
 
@@ -29,8 +29,6 @@ function main(args) {
   if (args.helpers) helpers();
   if (args.render) render();
   if (args.bones) bones();
-  var pieces = (args.preproc)? utils_preproc() : p2d.concat(p3d);
-  //if (args.sat_enable) pieces.push(utils_sat().translate([args.sat_x,args.sat_y,args.sat_z]));
-  return pieces;
+  return outs.concat((args.preproc)? utils_preproc() : obj);
 }
 

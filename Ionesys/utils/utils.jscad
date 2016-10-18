@@ -14,8 +14,7 @@ utils_sat = function() {
 // scale 2d and 3d shapes #######################
 utils_preproc = function() {
   pieces = [];
-  for (var i=0;i<p2d.length;i++) pieces.push(p2d[i].scale(0.1));
-  for (var i=0;i<p3d.length;i++) pieces.push(p3d[i].scale(0.1));
+  for (var i=0;i<objs.length;i++) pieces.push(objs[i].scale(0.1));
   return pieces;
 };
 
