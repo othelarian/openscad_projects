@@ -4,8 +4,6 @@
 
 // internal vars ################################
 //START_INC
-include("template.jscad"); //(utils/template.jscad)
-//include()
 //END_INC
 // helpers ######################################
 

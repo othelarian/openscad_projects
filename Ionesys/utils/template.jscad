@@ -22,17 +22,17 @@ ini_sat.z = 0.0;
 
 // outputs ######################################
 
-function helpers() {
+helpers = function() {
   //
   //
 }
 
-function bones() {
+bones = function() {
   //
   //
 }
 
-function render() {
+render = function() {
   //
   //
 }

@@ -24,28 +24,21 @@ function getParameterDefinitions() {
     {name:"preproc",type:"checkbox",checked:true,caption:"Preprocess scale : "},
     {name:"sat",type:"group",caption:"SAT parameters :"},
     {name:"sat_enable",type:"checkbox",checked:true,caption:"Enable SAT : "},
-    {name:"sat_x",type:"float",initial:ini_sat.x,caption:"SAT X pos : "},
-    {name:"sat_y",type:"float",initial:ini_sat.y,caption:"SAT Y pos : "},
-    {name:"sat_z",type:"float",initial:ini_sat.z,caption:"SAT Z pos : "}
+    {name:"sat_x",type:"float",initial:0.0,caption:"SAT X pos : "},
+    {name:"sat_y",type:"float",initial:0.0,caption:"SAT Y pos : "},
+    {name:"sat_z",type:"float",initial:0.0,caption:"SAT Z pos : "}
   ];
 }
 
 // main #########################################
 
 function main(args) {
+  args.sat_x = ini_sat.x;
+  args.sat_y = ini_sat.y;
+  args.sat_z = ini_sat.z;
   if (args.helpers) helpers();
   if (args.render) render();
   if (args.bones) bones();
-  //
-  // TODO : test arc
-  //
-  var pts = [[20,0],[0,0],[0,10]].concat(utils_half_arc(10,20,0,0,7));
-  var a = polygon(pts);
-  //
-  p2d.push(a);
-  //
-  // TODO : test ovoid
-  //
   var pieces = (args.preproc)? utils_preproc() : p2d.concat(p3d);
   if (args.sat_enable) pieces.push(utils_sat().translate([args.sat_x,args.sat_y,args.sat_z]));
   return pieces;
