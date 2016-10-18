@@ -16,29 +16,47 @@ if len(sys.argv) == 1:
 # c|current (set current project) ###############
 
 elif sys.argv[1] in ['c','current']:
+  # check the number of arguments
   if len(sys.argv) != 3:
     print('ERROR ! the last arg is missing.')
+  # check if the new project exists
   elif not Path(sys.argv[2]).exists():
     print("ERROR ! the file you specified doesn't exists !")
+  # arguments ok
   else:
+    # clean the current directory
     for f in os.listdir('./current'):
       if not f in ['.gitignore','main.jscad','utils.jscad']:
         os.unlink('./current/'+f)
-    #
-    # TODO : check includes
-    #
+    # get the includes
     includes = []
-    #
+    search = True
     f_base = open(sys.argv[2],'r')
-    #
-    #
-    #
+    while search:
+      line = f_base.readline()
+      if line.startswith('include'):
+        includes.append(line.split('//')[1][1:-2])
+      elif line.startswith('//END_INC'):
+        search = False
     f_base.close()
-    #
-    # TODO : ln hard link all the files
-    #
-    # TODO : override current.txt
-    #
+    # check if the includes exists
+    search = True
+    for f in includes:
+      if not Path(f).exists():
+        print('ERROR ! an include file is missing !')
+        print(f)
+        search = False
+        continue
+    # set the new project
+    if search:
+      lns = [[sys.argv[2],'current/current.jscad']]
+      for i in includes:
+        lns.append([i,'current/'+i.split('/')[-1]])
+      for ln in lns:
+        subprocess.run(['ln']+ln)
+      f = open('current.txt','w')
+      f.write(sys.argv[2])
+      f.close()
 
 # i|info (get current project) ##################
 
