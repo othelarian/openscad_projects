@@ -30,9 +30,9 @@ render = function() {
   // TODO : test ovoid
   //
   //p2d.push(polygon(utils_half_ovoid(50,20,70,5)));
-  var ovo = utils_half_ovoid(50,20,70,5);
-  //ovo = polygon(ovo);
-  //p2d.push(ovo);
+  var ovo = utils_ovoid(50,20,70,5);
+  ovo = polygon(ovo);
+  objs.push(ovo);
   //
   // big r : 50
   // small r : 20
@@ -50,21 +50,11 @@ render = function() {
   // B
   objs.push(cylinder({r:5,h:1,fn:4,center:true}).translate([90,0,10]));
   //
-  var pts = [];
-  for (var i=0;i<=5;i++) {
-    var tmp_ang = 180-(90/5)*i;
-    pts.push([cos(tmp_ang)*50,sin(tmp_ang)*50]);
-  }
-  for (var i=0;i<=7;i++) {
-    var tmp_ang = 90-(60/7)*i;
-    pts.push([
-      cos(tmp_ang)*(70+20),
-      sin(tmp_ang)*90-40
-    ]);
-  }
+  objs.push(cylinder({r:50,h:1,fn:16,center:true}).setColor([1,1,0]).translate([0,0,5]));
+  //
+  objs.push(cylinder({r:20,h:1,fn:16,center:true}).setColor([1,1,0]).translate([70,0,5]));
   //
   //p2d.push(polygon(pts));
-  //
   //
 }
 
