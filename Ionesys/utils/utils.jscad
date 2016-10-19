@@ -92,36 +92,87 @@ utils_ovoid = function(br,sr,e,n) {
   if (!(n instanceof Array)) n = [n,n,n];
   var pts = [];
   // first arc
-  //
+  for (var i=0;i<=n[0];i++) {
+    var tmp_ang = 270-(180/n[0])*i;
+    pts.push([cos(tmp_ang)*br,sin(tmp_ang)*br]);
+  }
   // second arc
-  //
+  var u_arc = (e*e-(br-sr)*(br-sr))/(2*(br-sr));
+  var r_arc = u_arc+br;
+  var ang_arc = atan(e/u_arc);
+  for (var i=1;i<=n[1];i++) {
+    var tmp_ang = 90-(ang_arc/n[1])*i;
+    pts.push([cos(tmp_ang)*r_arc,sin(tmp_ang)*r_arc-u_arc]);
+  }
   // third arc
-  //
+  var thd_ang = 90-ang_arc;
+  for (var i=1;i<=n[2];i++) {
+    var tmp_ang = thd_ang-((thd_ang*2)/n[2])*i;
+    pts.push([cos(tmp_ang)*sr+e,sin(tmp_ang)*sr]);
+  }
+  // fourth arc
+  for (var i=1;i<n[1];i++) {
+    var tmp_ang = -thd_ang-(ang_arc/n[1])*i;
+    pts.push([cos(tmp_ang)*r_arc,sin(tmp_ang)*r_arc+u_arc]);
+  }
+  return pts;
 };
 
 // half ellipse #################################
-utils_half_ellipse = function(r,e,n) {
+utils_half_ellipse = function(br,sr,e,n) {
   if (!(n instanceof Array)) n = [n,n];
-  var pts = [[0,0]];
-  //
+  var pts = [[-(sr+e),0]];
+  var u_arc = (e*e-(br-sr)*(br-sr))/(2*(br-sr));
+  var r_arc = u_arc+br;
+  var ang_arc = atan(e/u_arc);
+  var ang_ext = 90-ang_arc;
   // first arc
-  //
+  for (var i=1;i<=n[0];i++) {
+    var tmp_ang = 180-(ang_ext/n[0])*i;
+    pts.push([cos(tmp_ang)*sr-e,sin(tmp_ang)*sr]);
+  }
   // second arc
-  //
+  for (var i=1;i<=n[1];i++) {
+    var tmp_ang = 180-ang_ext-((ang_arc*2)/n[1])*i;
+    pts.push([cos(tmp_ang)*r_arc,sin(tmp_ang)*r_arc-u_arc]);
+  }
   // third arc
-  //
+  for (var i=1;i<n[0];i++) {
+    var tmp_ang = ang_ext-(ang_ext/n[0])*i;
+    pts.push([cos(tmp_ang)*sr+e,sin(tmp_ang)*sr]);
+  }
+  pts.push([sr+e,0]);
+  return pts;
 };
 
 // ellipse ######################################
-utils_ellipse = function(r,e,n) {
+utils_ellipse = function(br,sr,e,n) {
   if (!(n instanceof Array)) n = [n,n];
   var pts = [];
-  //
+  var u_arc = (e*e-(br-sr)*(br-sr))/(2*(br-sr));
+  var r_arc = u_arc+br;
+  var ang_arc = atan(e/u_arc);
+  var ang_ext = 90-ang_arc;
   // first arc
-  //
+  for (var i=0;i<=n[0];i++) {
+    var tmp_ang = (180+ang_ext)-((ang_ext*2)/n[0])*i;
+    pts.push([cos(tmp_ang)*sr-e,sin(tmp_ang)*sr]);
+  }
   // second arc
-  //
+  for (var i=1;i<=n[1];i++) {
+    var tmp_ang = 90+ang_arc-((ang_arc*2)/n[1])*i;
+    pts.push([cos(tmp_ang)*r_arc,sin(tmp_ang)*r_arc-u_arc]);
+  }
   // third arc
-  //
+  for (var i=1;i<=n[0];i++) {
+    var tmp_ang = ang_ext-((ang_ext*2)/n[0])*i;
+    pts.push([cos(tmp_ang)*sr+e,sin(tmp_ang)*sr]);
+  }
+  // fourth arc
+  for (var i=1;i<n[1];i++) {
+    var tmp_ang = -ang_ext-((ang_arc*2)/n[1])*i;
+    pts.push([cos(tmp_ang)*r_arc,sin(tmp_ang)*r_arc+u_arc]);
+  }
+  return pts;
 };
 

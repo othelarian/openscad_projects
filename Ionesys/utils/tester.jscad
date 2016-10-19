@@ -27,16 +27,13 @@ bones = function() {}
 
 render = function() {
   //
-  // TODO : test ovoid
+  // TODO : test ellipse
   //
-  //p2d.push(polygon(utils_half_ovoid(50,20,70,5)));
-  var ovo = utils_ovoid(50,20,70,5);
-  ovo = polygon(ovo);
-  objs.push(ovo);
+  var ellipse= utils_ellipse(50,30,60,[4,8]);
+  ellipse = polygon(ellipse);
+  objs.push(ellipse);
   //
-  // big r : 50
-  // small r : 20
-  // C -> I : 70
+  /*
   // C
   objs.push(cylinder({r:5,h:1,fn:4,center:true}).translate([0,0,10]));
   // A
@@ -55,6 +52,7 @@ render = function() {
   objs.push(cylinder({r:20,h:1,fn:16,center:true}).setColor([1,1,0]).translate([70,0,5]));
   //
   //p2d.push(polygon(pts));
+  */
   //
 }
 
