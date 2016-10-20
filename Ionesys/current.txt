@@ -1,1 +1,1 @@
-utils/tester.jscad
+persos/basic_perso.jscad

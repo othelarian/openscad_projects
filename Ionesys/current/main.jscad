@@ -17,8 +17,8 @@ var outs = [];
 function getParameterDefinitions() {
   return [
     {name:"render",type:"checkbox",checked:true,caption:"Render objects : "},
-    {name:"bones",type:"checkbox",checked:false,caption:"Render bones : "},
-    {name:"helpers",type:"checkbox",checked:false,caption:"Render helpers : "}
+    {name:"bones",type:"checkbox",checked:true,caption:"Render bones : "},
+    {name:"helpers",type:"checkbox",checked:true,caption:"Render helpers : "}
   ];
 }
 
