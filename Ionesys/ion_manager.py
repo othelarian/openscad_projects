@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/python3
 
 # imports #######################################
 
@@ -47,6 +47,9 @@ elif sys.argv[1] in ['c','current']:
         print(f)
         search = False
         continue
+    # check the exitence of the utils.jscad in current directory
+    if not Path('current/utils.jscad').exists():
+      os.link('utils/utils.jscad','current/utils.jscad')
     # set the new project
     if search:
       lns = [[sys.argv[2],'current/current.jscad']]
