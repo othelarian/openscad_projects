@@ -11,6 +11,7 @@ from pathlib import Path
 if len(sys.argv) == 1:
   print('list of commands :')
   print('ion_manager.py c|current file -> set current with the right project')
+  print('ion_manager.py i|info -> get the name of the current project')
 
 # c|current (set current project) ###############
 
