@@ -54,27 +54,19 @@ In this file, there is:
 
 ## utils/utils.jscad
 
-This file is always keep in 'current' directory, as an hardlink, because is used by 'main.jscad'. It contains several functions:
-
-* utils_sat: generate a small gizmo to help the creation
-* utils_preproc: used only by main function in 'main.jscad'
-* utils_half_arc: generate a polygon with an arc from 90° to 0°, with in parameters:
-  1. h: the height of the triangle form by the half arc (value apply in Y axis)
-  2. w: the width of the previous triangle (value apply in X axis)
-  3. oh: offset apply to the height from the center of the polygon
-  4. ow: offset apply to the width from the center of the polygon
-  5. n: number of fragments for the arc
-
-TODO
+This file is always keep in 'current' directory, as an hardlink, because is used by 'main.jscad'. It contains several functions, list [here](https://github.com/othelarian/openscad_projects/wiki/utils.jscad-functions).
 
 ## utils/template.jscad
 
 This file contains all the basics to create a new file project, with the helpers, bones and render functions, and comments to help.
 
-# W.I.P.
+# Wiki
 
-List of what I'm working on.
+There is a [wiki](https://github.com/othelarian/openscad_projects/wiki/) now, where you can find all the informations about the projects.
 
-* ring in utils.jscad
-* basic_perso.jscad
+# Roadmap
+
+In the wiki I created a [page](https://github.com/othelarian/openscad_projects/wiki/Roadmap) to gathered all the elements I'm working on.
+
+I also maintain up-to-date the issues list. The roadmap take care only of the issues currently in progress.
 
