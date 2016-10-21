@@ -4,22 +4,15 @@ This git repository is used to keep track to all my work with CSG system.
 
 # Installation
 
-* install http-server: ``` npm i -g http-server  ```
 * git clone this repository
-* in the root, install openjscad:
-  1. git clone the repository: https://github.com/Spiritdude/OpenJSCAD.org
-  2. move in the OpenJSCAD.org directory
-  3. use: ``` make install ```
+* for openjscad.org, use the install script, see [the doc](https://github.com/othelarian/openscad_projects/wiki/OpenJSCAD-specials#installation)
 * for openscad, just install [openscad](www.openscad.org)
 
 # Usage
 
 ## For openjscad:
 
-* launch http-server in the root directory of this repository: ``` http-server ```
-* go to http://localhost:8080/OpenJSCAD.org
-* go to the 'Ionesys' directory and use the ion_manager.py script
-* drag'n'drop the files in 'Ionesys/current'
+See [the wiki page](https://github.com/othelarian/openscad_projects/wiki/OpenJSCAD-specials#usage) to use OpenJSCAD.org offline.
 
 ## For openscad:
 
@@ -27,46 +20,9 @@ Use openscad, the official website will be more useful.
 
 ## ion_manager.py:
 
-* without args: show the list of commands
-* with 'c' or 'current' and a relative path to a file: set the current directory with the hardlink to all includes and the files, ready to use
-* with 'i' or 'info': get the current file selected in current
-
-# Openjscad specials
-
-I built several fonctionalities to help me in my work with openjscad.
-
-## current/main.jscad
-
-In this file, there is:
-
-* a main function which load 3 others :
-  * helpers
-  * bones
-  * render
-* 2 arrays:
-  * 'outs': every objects that don't need a scale pass
-  * 'objs': every objects that will be scale before render
-* a preproc function scale down by ten every objects in the 'objs' array
-* 3 parameters:
-  * 'render' (boolean): toggle the render function
-  * 'bones' (boolean): toggle the bones function
-  * 'helpers' (boolean): toggle the helpers function
-
-## utils/utils.jscad
-
-This file is always keep in 'current' directory, as an hardlink, because is used by 'main.jscad'. It contains several functions, list [here](https://github.com/othelarian/openscad_projects/wiki/utils.jscad-functions).
-
-## utils/template.jscad
-
-This file contains all the basics to create a new file project, with the helpers, bones and render functions, and comments to help.
-
-# Wiki
-
-There is a [wiki](https://github.com/othelarian/openscad_projects/wiki/) now, where you can find all the informations about the projects.
+A [useful guide](https://github.com/othelarian/openscad_projects/wiki/Usage-of-ion_manager.py) is available in the wiki.
 
 # Roadmap
 
-In the wiki I created a [page](https://github.com/othelarian/openscad_projects/wiki/Roadmap) to gathered all the elements I'm working on.
-
-I also maintain up-to-date the issues list. The roadmap take care only of the issues currently in progress.
+[The project manager](https://github.com/othelarian/openscad_projects/projects) functionality provide by github is used as a roadmap for the repository.
 
