@@ -5,7 +5,6 @@
 import sys
 import os
 from pathlib import Path
-import subprocess
 
 # default (list of commands) ####################
 
@@ -56,7 +55,7 @@ elif sys.argv[1] in ['c','current']:
       for i in includes:
         lns.append([i,'current/'+i.split('/')[-1]])
       for ln in lns:
-        subprocess.run(['ln']+ln)
+        os.link(ln[0],ln[1])
       f = open('current.txt','w')
       f.write(sys.argv[2])
       f.close()
