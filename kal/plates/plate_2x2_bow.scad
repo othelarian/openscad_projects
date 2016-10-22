@@ -48,12 +48,14 @@ module plate_2x2_bow(m_scale,ext_scale,m_fn=ext_fn) {
       rotate([0,-90,0]) linear_extrude(height=5) polygon(pts_base);
       translate([-2.5,-2.5,1]) cylinder(h=3,d=5,center=false,$fn=12);
       translate([-2.5,2.5,1]) cylinder(h=3,d=5,center=false,$fn=12);
-      difference() {
-        translate([0,5,0]) rotate([90,0,0]) linear_extrude(height=10) polygon(pts_big);
-        translate([0,-5,-1]) linear_extrude(height=6) polygon(pts_side);
-        translate([0,5,5]) rotate([180,0,0]) linear_extrude(height=6) polygon(pts_side);
-      }
-      translate([0,5,0]) rotate([90,0,0]) linear_extrude(height=10) polygon(pts_small);
+      hull() {
+        difference() {
+          translate([0,5,0]) rotate([90,0,0]) linear_extrude(height=10) polygon(pts_big);
+          translate([0,-5,-1]) linear_extrude(height=6) polygon(pts_side);
+          translate([0,5,5]) rotate([180,0,0]) linear_extrude(height=6) polygon(pts_side);
+        }
+        translate([0,5,0]) rotate([90,0,0]) linear_extrude(height=10) polygon(pts_small);
+    }
     }
 }
 
