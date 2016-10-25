@@ -1,17 +1,14 @@
-// ovoid_prso.scad #####################
+// basic_perso.scad ####################
 
 // uses & includes #####################
+
+use <../kal/misc/arcs_fn.scad>;
 
 // internal vars #######################
 
 $fn = 12;
 
 // internal functions ##################
-
-function arc(h,w,n) =
-  let (hyp = sqrt(h*h+w*w),r = (hyp/2) / (h/hyp),ang = (90-acos(h/hyp))*2)
-  [for (i=[0:n]) let (tmp = 90-(ang/n)*i) [cos(tmp)*r,sin(tmp)*r-(r-h)]]
-;
 
 // internal modules ####################
 
@@ -57,12 +54,12 @@ module head() {
       translate([-1,0,0])
       rotate([0,90,0])
       rotate_extrude(angle=360)
-      polygon(concat([[0,-1]],arc(2,(e-2)/2,3)));
+      polygon(concat([[0,-1]],demi_arc(2,(e-2)/2,3)));
     }
   }
   //outputs
   translate([2,0,122]) union() {
-    rotate_extrude(angle=360) polygon(concat([[0,0]],arc(d/2-2,d/2,4)));
+    rotate_extrude(angle=360) polygon(concat([[0,0]],demi_arc(d/2-2,d/2,4)));
     translate([0,0,-3]) cylinder(h=3,d1=d-4,d2=d);
     translate([18,0,5]) {
       translate([0,ee,0]) rotate([0,0,10]) eye();
@@ -79,13 +76,13 @@ module body() {
   //internal modules
   module shoulder() {
     rotate_extrude(angle=360)
-    translate([8,0,0]) polygon(concat([[0,0]],arc(10,6,3)));
+    translate([8,0,0]) polygon(concat([[0,0]],demi_arc(10,6,3)));
   }
   module hip() {
     translate([0,hp_e,0]) rotate([-90,0,0])
     union() {
       rotate_extrude(angle=360)
-      translate([8,0,0]) polygon(concat([[0,0]],arc(6,4,3)));
+      translate([8,0,0]) polygon(concat([[0,0]],demi_arc(6,4,3)));
       translate([0,-6,-10]) hull() {
         cylinder(h=1,d=28);
         translate([0,6,9]) cylinder(h=2,d=26);
@@ -97,7 +94,7 @@ module body() {
     difference() {
       union() {
         difference () {
-          rotate_extrude(angle=360) polygon(concat([[0,0]],arc(20,d/2,5)));
+          rotate_extrude(angle=360) polygon(concat([[0,0]],demi_arc(20,d/2,5)));
           translate([15,0,0]) rotate([90,0,180])
           linear_extrude(height=60,center=true) polygon([[-20,0],[-20,21],[60,20],[0,0],[0,-1]]);
         }
@@ -190,9 +187,9 @@ module leg() {
       polygon([[-7,0],[-7,6],[-6,9],[-5,9],[-4,8],[4,8],[5,9],[6,9],[7,6],[7,0]]);
       translate([0,7,3]) {
         rotate([90,0,0])
-        rotate_extrude(angle=360) polygon(concat([[0,-1]],arc(5.3,5.3,3)));
+        rotate_extrude(angle=360) polygon(concat([[0,-1]],demi_arc(5.3,5.3,3)));
         rotate([-90,0,0])
-        rotate_extrude(angle=360) polygon(concat([[0,-1]],arc(5.3,5.3,3)));
+        rotate_extrude(angle=360) polygon(concat([[0,-1]],demi_arc(5.3,5.3,3)));
       }
     }
     //
@@ -231,8 +228,8 @@ module foot() {
       rotate([0,0,-90]) linear_extrude(height=3)
       polygon([[-8,-5],[-8,5],[-5,8],[5,8],[8,5],[8,-5]]);
       translate([-5,0,0]) linear_extrude(height=3) {
-        rotate([0,0,90]) polygon(concat([[0,0]],arc(3,8,2)));
-        rotate([0,180,90]) polygon(concat([[0,0]],arc(3,8,2)));
+        rotate([0,0,90]) polygon(concat([[0,0]],demi_arc(3,8,2)));
+        rotate([0,180,90]) polygon(concat([[0,0]],demi_arc(3,8,2)));
       }
     }
     //toe center
@@ -251,9 +248,9 @@ module foot() {
     //ankle
     translate([0,0,3]) cylinder(h=5,d=5,$fn=6);
     translate([0,0,10]) {
-      rotate_extrude(angle=360) polygon(concat([[0,-1]],arc(5,5,3)));
+      rotate_extrude(angle=360) polygon(concat([[0,-1]],demi_arc(5,5,3)));
       rotate([180,0,0])
-      rotate_extrude(angle=360) polygon(concat([[0,-1]],arc(5,5,3)));
+      rotate_extrude(angle=360) polygon(concat([[0,-1]],demi_arc(5,5,3)));
     }
   }
 }

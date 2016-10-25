@@ -13,6 +13,12 @@ function arc_output(ang,r,n,o) = [
 
 // API #################################
 
+function demi_arc(h,w,n,o=[0,0]) =
+  let (hyp = sqrt(h*h+w*w),r = (hyp/2) / (h/hyp),ang = (90-acos(h/hyp))*2)
+  [for (i=[0:n]) let (tmp = 90-(ang/n)*i) [cos(tmp)*r+o[0],sin(tmp)*r-(r-h)+o[1]]]
+;
+
+/*
 // 2 points arc
 function arc_3pts(pt1,pt2,n) =
   let (ang = "")
@@ -29,8 +35,4 @@ function arc_2pts_right(pt1,pt2,n) =
   //concat([pt1],arc_output(ang,r,n,o),[pt2])
   concat([pt1],[pt2])
 ;
-
-
-// testing zone ########################
-
-polygon(concat([[0,0]],arc_2pts_right([0,10],[20,0])));
+*/
