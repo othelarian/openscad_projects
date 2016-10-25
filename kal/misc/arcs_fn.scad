@@ -18,21 +18,7 @@ function demi_arc(h,w,n,o=[0,0]) =
   [for (i=[0:n]) let (tmp = 90-(ang/n)*i) [cos(tmp)*r+o[0],sin(tmp)*r-(r-h)+o[1]]]
 ;
 
-/*
-// 2 points arc
-function arc_3pts(pt1,pt2,n) =
-  let (ang = "")
-  //arc_output(ang,r,n,o)
-  []
+function arc(h,w,n,o=[0,0]) =
+  let (hyp = sqrt(h*h+(w/2)*(w/2)),r = (hyp/2) / (h/hyp),ang = (90-acos(h/hyp))*4)
+  [for (i=[0:n]) let (tmp = 90+(ang/2)-(ang/n)*i) [cos(tmp)*r+o[0],sin(tmp)*r-(r-h)+o[1]]]
 ;
-
-// 2 points arc starting xwith a 90° angle
-function arc_2pts_right(pt1,pt2,n) =
-  let (
-    h = (pt1[0] < pt2[0])? pt1[1] - pt2[1] : pt2[0] - pt1[0],
-    w = 0
-  )
-  //concat([pt1],arc_output(ang,r,n,o),[pt2])
-  concat([pt1],[pt2])
-;
-*/
