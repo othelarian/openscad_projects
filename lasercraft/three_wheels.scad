@@ -1,11 +1,18 @@
 // infos ###########################
 
-//thickness : 2
+//nb pieces : 8
+//thickness : 1
+
+// includes ########################
+
+include <utils.scad>;
 
 // variables #######################
 
+ext_id = -1;
 ecart_wheels = 30;
 $fn = 12;
+all = (ext_id < 0)? true : false;
 
 // functions #######################
 
@@ -26,13 +33,16 @@ module front_wheel() {
 module back_wheel() {
   module tick() {
     points = [[6,0],[6,2],[2,4],[-2,4],[-6,2],[-6,0]];
-    rotate([0,90,0]) translate([0,12,-1])
+    rotate([0,90,0]) translate([0,13,-2])
     linear_extrude(2) polygon(points);
   }
   rotate([90,0,0]) union() {
     difference() {
-      cylinder(2,d=28,center=true);
-      cylinder(3,d=4,center=true,$fn=8);
+      union() {
+        translate([0,0,3]) cylinder(2,d=30,center=true);
+        translate([0,0,-3]) cylinder(2,d=30,center=true);
+      }
+      cylinder(10,d=4,center=true,$fn=8);
     }
     for (i = [0:11]) rotate([0,0,(i*30)]) tick();
     //
@@ -98,14 +108,14 @@ module motor() {
 // composing #######################
 
 translate([30,0,0]) {
-  translate([0,ecart_wheels,0]) front_wheel();
-  translate([0,-ecart_wheels,0]) front_wheel();
-  wheel_rotule();
-  mirror([0,1,0]) wheel_rotule();
-  translate([-4,0,0]) direction();
-  translate([4,0,0]) direction();
+  if (tstid(0)) translate([0,ecart_wheels,0]) front_wheel();
+  if (tstid(1)) translate([0,-ecart_wheels,0]) front_wheel();
+  if (tstid(2)) wheel_rotule();
+  if (tstid(3)) mirror([0,1,0]) wheel_rotule();
+  if (tstid(4)) translate([-4,0,0]) direction();
+  if (tstid(5)) translate([4,0,0]) direction();
   //
-  motor();
+  if (tstid(6)) motor();
   //
 }
-translate([-50,0,0]) back_wheel();
+if (tstid(7)) translate([-60,0,0]) back_wheel();
