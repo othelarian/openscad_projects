@@ -10,7 +10,6 @@ include <utils.scad>;
 // variables #######################
 
 ext_id = -1;
-all = (ext_id < 0)? true : false;
 $fn = 12;
 
 ecart_wheels = 32.5;

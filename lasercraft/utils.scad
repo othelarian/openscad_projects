@@ -33,13 +33,11 @@ function ang_2v(v1,v2) = let (x = v2[0]-v1[0],y = v2[1]-v1[1]) atan(y/x);
 // arc from 2 points and 1 height
 function arc_2p1h(p1,p2,h,n) =
   let (
-    ah = abs(h),
+    ah = abs(h), s = (h/abs(h)),
     w = dist_2v(p1,p2)/2,hyp = sqrt(ah*ah+w*w),r = (hyp/2)/(ah/hyp),
-    //ang = acos(h/hyp)*4,
-    //
     dev_ang = (abs(ang_2v(p1,p2))+((p1[0]>p2[0])? 90 : 0))*((p1[1]>p2[1])? -1 : 1),
-    sh = (h/abs(h))*((ah<w)? -1 : 1)*sqrt(r*r-w*w),
-    //(h/abs(h))
+    sh = s*((ah<w)? -1 : 1)*sqrt(r*r-w*w),
+    //
     m = [(p2[0]-p1[0])/2+p1[0],(p2[1]-p1[1])/2+p1[1]],
     c = [cos(dev_ang+90)*sh+m[0],sin(dev_ang+90)*sh+m[1]],
     //
@@ -50,10 +48,11 @@ function arc_2p1h(p1,p2,h,n) =
     //
   )
   concat(
-    [p1],//[c],[[w,sh]],//[[dev_ang,ang]],[[start_ang,end_ang]],//[[ang_2v(p1,c),0]],
+    [p1],
+    [c],[[w,sh]],
+    [[dev_ang,ang]],[[start_ang,end_ang]],
     //
     [for (i=[1:n-1]) let (tmp = start_ang-(h/abs(h))*(ang/n)*i) [cos(tmp)*r+c[0],sin(tmp)*r+c[1]]],
-    //[for (i=[1:n-1]) let (tmp = start_ang+10*i) [cos(tmp)*r+c[0],sin(tmp)*r+c[1]]],
     //
     [p2]
   );
@@ -67,6 +66,30 @@ function arc_h2p(p1,p2,n) =
     //
     [p2]
   );
+
+// arc from 2 points and 1 center
+function arc_2p1c(p1,p2,c,s,n) =
+  let(
+    //
+    r = dist_2v(c,p1)
+    //
+  )
+  concat(
+    [p1],
+    //
+    //
+    [p2]
+  );
+
+// arc from 3 points
+function arc_3p(p1,p2,p3,n) =
+  let(
+    //
+    //
+  )
+  //
+  //
+  0;
 
 // ortho demi arc
 function demi_arc(h,w,n,o=[0,0]) =
@@ -98,7 +121,24 @@ translate([4.4,4.4,0.5]) color("blue") cube([1,1,1],center=true);
 translate([10.5,10.5,0.5]) color("blue") cube([1,1,1],center=true);
 //translate([9.8,9.8,0.5]) color("blue") cube([1,1,1],center=true);
 
-pts = arc_2p1h([5,10],[10,5],10,5);
+//pts = arc_2p1h([5,10],[10,5],-10,5);
+//echo(pts);
+//polygon(pts);
+pts = arc_2p1c([5,10],[10,5],[4.4,4.4],1,5);
+//pts = arc_2p1c([5,10],[10,5],[10.5,10.5],1,5);
 echo(pts);
 polygon(pts);
-*/
+//*/
+
+//*
+module test_arc_3p(p1,p2,p3,n) {
+  translate([p1[0],p1[1],1]) color("blue") cube(1,center=true);
+  translate([p2[0],p2[1],1]) color("blue") cube(1,center=true);
+  translate([p3[0],p3[1],1]) color("pink") cube(1,center=true);
+  pts = arc_3p(p1,p2,p3,n);
+  echo(pts);
+  //polygon(pts);
+}
+
+test_arc_3p([5,10],[10,5],[10,10],5);
+//*/
