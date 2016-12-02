@@ -1,7 +1,7 @@
 // infos ###########################
 
 //nb pieces : 8
-//thickness : 1
+//thickness : 2
 
 // includes ########################
 
@@ -10,9 +10,10 @@ include <utils.scad>;
 // variables #######################
 
 ext_id = -1;
-ecart_wheels = 32.5;
-$fn = 12;
 all = (ext_id < 0)? true : false;
+$fn = 12;
+
+ecart_wheels = 32.5;
 
 // functions #######################
 

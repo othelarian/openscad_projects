@@ -88,15 +88,17 @@ function arc(h,w,n,o=[0,0]) =
 
 // TEST ZONE ########
 
-translate([5,10,0]) color("yellow") cube([1,1,1],center=true);
-translate([10,5,0]) color("yellow") cube([1,1,1],center=true);
-translate([7.5,7.5,0]) color("pink") cube([1,1,1],center=true);
-translate([14.6,14.6,0]) color("turquoise") cube([1,1,1],center=true);
-translate([0.4,0.4,0]) color("turquoise") cube([1,1,1],center=true);
+/*
+translate([5,10,0.5]) color("yellow") cube([1,1,1],center=true);
+translate([10,5,0.5]) color("yellow") cube([1,1,1],center=true);
+translate([7.5,7.5,0.5]) color("pink") cube([1,1,1],center=true);
+translate([14.6,14.6,0.5]) color("turquoise") cube([1,1,1],center=true);
+translate([0.4,0.4,0.5]) color("turquoise") cube([1,1,1],center=true);
 translate([4.4,4.4,0.5]) color("blue") cube([1,1,1],center=true);
 translate([10.5,10.5,0.5]) color("blue") cube([1,1,1],center=true);
 //translate([9.8,9.8,0.5]) color("blue") cube([1,1,1],center=true);
 
-pts = arc_2p1h([5,10],[10,5],-10,5);
+pts = arc_2p1h([5,10],[10,5],10,5);
 echo(pts);
 polygon(pts);
+*/
