@@ -4,10 +4,28 @@
 
 function tstid(id) = (ext_id == -1 || ext_id == id)? true : false;
 
+// gizmo #################################
+
+module gizmo() {
+  color("yellow") cube(1,true);
+  color("red") translate([5,0,0]) cube(1,true);
+  color("green") translate([0,5,0]) cube(1,true);
+  color("blue") translate([0,0,5]) cube(1,true);
+}
+
 // polygon slice #########################
 
 module slice(points,thickness) {
   translate([0,0,-1]) linear_extrude(thickness) polygon(points);
+}
+
+// ring ##################################
+
+module ring(ext,int,h,n) {
+  difference() {
+    cylinder(h,d=ext,$fn=n,center=false);
+    translate([0,0,-0.5]) cylinder(h+1,d=int,$fn=n,center=false);
+  }
 }
 
 // mirror path ###########################
@@ -140,5 +158,5 @@ module test_arc_3p(p1,p2,p3,n) {
   //polygon(pts);
 }
 
-test_arc_3p([5,10],[10,5],[10,10],5);
+//test_arc_3p([5,10],[10,5],[10,10],5);
 //*/
